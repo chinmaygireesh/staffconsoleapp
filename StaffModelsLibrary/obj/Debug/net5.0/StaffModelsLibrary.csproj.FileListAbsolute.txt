@@ -1,0 +1,12 @@
+C:\Users\user\Documents\c#\StaffProject\StaffModelsLibrary\bin\Debug\net5.0\StaffModelsLibrary.deps.json
+C:\Users\user\Documents\c#\StaffProject\StaffModelsLibrary\bin\Debug\net5.0\StaffModelsLibrary.dll
+C:\Users\user\Documents\c#\StaffProject\StaffModelsLibrary\bin\Debug\net5.0\ref\StaffModelsLibrary.dll
+C:\Users\user\Documents\c#\StaffProject\StaffModelsLibrary\bin\Debug\net5.0\StaffModelsLibrary.pdb
+C:\Users\user\Documents\c#\StaffProject\StaffModelsLibrary\obj\Debug\net5.0\StaffModelsLibrary.csproj.AssemblyReference.cache
+C:\Users\user\Documents\c#\StaffProject\StaffModelsLibrary\obj\Debug\net5.0\StaffModelsLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Documents\c#\StaffProject\StaffModelsLibrary\obj\Debug\net5.0\StaffModelsLibrary.AssemblyInfoInputs.cache
+C:\Users\user\Documents\c#\StaffProject\StaffModelsLibrary\obj\Debug\net5.0\StaffModelsLibrary.AssemblyInfo.cs
+C:\Users\user\Documents\c#\StaffProject\StaffModelsLibrary\obj\Debug\net5.0\StaffModelsLibrary.csproj.CoreCompileInputs.cache
+C:\Users\user\Documents\c#\StaffProject\StaffModelsLibrary\obj\Debug\net5.0\StaffModelsLibrary.dll
+C:\Users\user\Documents\c#\StaffProject\StaffModelsLibrary\obj\Debug\net5.0\ref\StaffModelsLibrary.dll
+C:\Users\user\Documents\c#\StaffProject\StaffModelsLibrary\obj\Debug\net5.0\StaffModelsLibrary.pdb

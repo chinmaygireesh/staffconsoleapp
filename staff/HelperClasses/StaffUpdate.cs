@@ -5,100 +5,114 @@ namespace staff
 {
     class StaffUpdate
     {
-        public static void Update(dynamic staff)
+        public static Staff Update(dynamic staff)
         {
+            Staff updatedStaff = null;
             switch((int)staff.StaffType)
             {
                 case 1:
-                    UpdateTeaching(staff);
+                    updatedStaff = UpdateTeaching(staff);
                     break;
 
                 case 2:
-                    UpdateAdministrative(staff);   
+                    updatedStaff = UpdateAdministrative(staff);   
                     break;
                 case 3:
-                    UpdateSupporting(staff);
+                    updatedStaff =  UpdateSupporting(staff);
                     break;    
                 default:
                     break;    
             }
+            return updatedStaff;
         }
-        public static void UpdateTeaching(dynamic staff)
+        public static Teaching UpdateTeaching(Teaching s)
         {
+
+            Teaching teacher = new Teaching(s.Name,s.EmpId,s.Salary,s.Subject, s.NoOfHrs);     
             Console.WriteLine("select the atribute that you want to change\n1.name\n2.salary\n3.Teaching subject\n4.No. of teaching hours in a week");
             int userChoice = Convert.ToInt32(Console.ReadLine());
             switch(userChoice)
             {
                 case 1:
-                    UpdateName(staff);
+                    UpdateName(teacher);
                     break;
                 case 2:
-                    UpdateSalary(staff);
+                    UpdateSalary(teacher);
                     break;
                 case 3:
                     Console.WriteLine("Enter the new subject");
-                    staff.Subject = Console.ReadLine();
+                    teacher.Subject = Console.ReadLine();
                     break; 
                 case 4:
                     Console.WriteLine("Enter the time");
-                    staff.NoOfHrs = Convert.ToInt32(Console.ReadLine());
+                    teacher.NoOfHrs = Convert.ToInt32(Console.ReadLine());
                     break;
                 default:
                     Console.WriteLine("select a valid opyion");     
                     break;             
             }
+            StaffDisplay.Display(teacher);
+            return teacher;
         }
 
-        public static void UpdateAdministrative(dynamic staff)
+        public static Administrative UpdateAdministrative(Administrative s)
         {
+
+            Administrative administrative = new Administrative(s.Name, s.EmpId, s.Salary, s.AdminNo, s.AdmDprt);
+
             Console.WriteLine("select the atribute that you want to change\n1.name\n2.salary\n3.Administrative no\n4.Administrating department");
             int userChoice = Convert.ToInt32(Console.ReadLine());
             switch(userChoice)
             {
                 case 1:
-                    UpdateName(staff);
+                    UpdateName(administrative);
                     break;
                 case 2:
-                    UpdateSalary(staff);
+                    UpdateSalary(administrative);
                     break;
                 case 3:
                     Console.WriteLine("Enter the new Admin no.");
-                    staff.AdminNo =  Console.ReadLine();
+                    administrative.AdminNo =  Console.ReadLine();
                     break; 
                 case 4:
                     Console.WriteLine("Enter the new Department");
-                    staff.AdmDprt = Console.ReadLine();
-                    break;
-                default:
-                    Console.WriteLine("select a valid opyion");     
-                    break;             
-            }   
-        }
-
-        public static void UpdateSupporting(dynamic staff)
-        {
-            Console.WriteLine("select the atribute that you want to change\n1.name\n2.salary\n3.Name of superior\n4.Supporting field");
-            int userChoice = Convert.ToInt32(Console.ReadLine());
-            switch(userChoice)
-            {
-                case 1:
-                    UpdateName(staff);
-                    break;
-                case 2:
-                    UpdateSalary(staff);
-                    break;
-                case 3:
-                    Console.WriteLine("Enter the new superior");
-                    staff.Superior = Console.ReadLine();
-                    break; 
-                case 4:
-                    Console.WriteLine("Enter the new Supporting field");
-                    staff.Field = Console.ReadLine();
+                    administrative.AdmDprt = Console.ReadLine();
                     break;
                 default:
                     Console.WriteLine("select a valid opyion");     
                     break;             
             }
+            StaffDisplay.Display(administrative);
+            return administrative;
+        }
+
+        public static Supporting UpdateSupporting(Supporting s)
+        {
+            Supporting supporting = new Supporting(s.Name, s.EmpId, s.Salary, s.Superior, s.Field);
+            Console.WriteLine("select the atribute that you want to change\n1.name\n2.salary\n3.Name of superior\n4.Supporting field");
+            int userChoice = Convert.ToInt32(Console.ReadLine());
+            switch(userChoice)
+            {
+                case 1:
+                    UpdateName(supporting);
+                    break;
+                case 2:
+                    UpdateSalary(supporting);
+                    break;
+                case 3:
+                    Console.WriteLine("Enter the new superior");
+                    supporting.Superior = Console.ReadLine();
+                    break; 
+                case 4:
+                    Console.WriteLine("Enter the new Supporting field");
+                    supporting.Field = Console.ReadLine();
+                    break;
+                default:
+                    Console.WriteLine("select a valid opyion");     
+                    break;             
+            }
+            StaffDisplay.Display(supporting);
+            return supporting;
         }
         
         public static void UpdateName(dynamic staff)

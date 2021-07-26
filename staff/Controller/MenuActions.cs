@@ -17,57 +17,27 @@ namespace staff
             return staff;
         }
 
-        public static void  DisplayAstaff(List<Staff> staffList)
+        public static void  DisplayAstaff(InMemory inMemory)
         {   
-            Console.WriteLine("----EMPLOYEE DETAILS---");
-            int selectedUser =  MenuActinoHelper.ShowStaffList(staffList);  
+            Console.WriteLine("Enter the empId ");
+            int empId = Convert.ToInt32(Console.ReadLine());
             try 
-            {
-             StaffDisplay.Display(staffList[selectedUser]);
+            {                
+                StaffDisplay.Display(inMemory.GetStaff(empId));
             }
             catch(ArgumentOutOfRangeException e)
             {
                 Console.WriteLine("Exception caught: {0}", e);
             }
-        }
-
-        public static void  UpdateAStaff(List<Staff> staffList)
-        {                    
-            int selectedUser =  MenuActinoHelper.ShowStaffList(staffList); 
-            try 
-            {
-                StaffUpdate.Update(staffList[selectedUser]);
-                Console.WriteLine("----SUCCESSFULLY UPADATED----");       
-            }
-            catch(ArgumentOutOfRangeException e)
-            {
-                Console.WriteLine("Exception caught: {0}", e);
-            }    
         }
 
         public static void DisplayAllStaffs(List<Staff> staffList)
-            {   
-                Console.WriteLine("----EMPLOYEE DETAILS---");
-                foreach (Staff staff in staffList)  
-                {  
-                    StaffDisplay.Display(staff);
-                }  
-            }
-
-        public static void  DeleteAStaff(List<Staff> staffList)
         {
-            int selectedUser =  MenuActinoHelper.ShowStaffList(staffList);
-             try 
+            Console.WriteLine("----EMPLOYEE DETAILS---");
+            foreach (Staff staff in staffList)
             {
-                staffList[selectedUser] = null;
-                staffList.RemoveAt(selectedUser);
-                GC.Collect();                
-                Console.WriteLine("----SUCCESSFULLY DELETED----");
+                StaffDisplay.Display(staff);
             }
-            catch(ArgumentOutOfRangeException e)
-            {
-                Console.WriteLine("Exception caught: {0}", e);
-            }    
-        }   
+        }
     }
 }

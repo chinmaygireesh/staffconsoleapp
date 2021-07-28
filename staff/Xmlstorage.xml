@@ -24,4 +24,12 @@
     <Superior>454</Superior>
     <Field>454</Field>
   </Staff>
+  <Staff xsi:type="Teaching">
+    <Name>gopalan</Name>
+    <EmpId>4</EmpId>
+    <Salary>454</Salary>
+    <StaffType>Teaching</StaffType>
+    <Subject>544</Subject>
+    <NoOfHrs>54</NoOfHrs>
+  </Staff>
 </ArrayOfStaff>

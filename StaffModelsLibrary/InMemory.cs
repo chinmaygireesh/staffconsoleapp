@@ -5,9 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace StaffModelsLibrary
-{
-    
-    
+{   
     public class InMemory : IStorage
     {
         public List<Staff> staffList = new List<Staff>();
@@ -47,18 +45,10 @@ namespace StaffModelsLibrary
                 }
                 i++;
             }
-
             staffList[i] = updatedStaff;
             Console.WriteLine($"given index is {i}");
-
-
-
-
-
-            //   staffList.Add(updatedStaff);
             // Console.WriteLine("----SUCCESSFULLY UPADATED----");
         }
-
         public List<Staff> GetAllStaffs()
         {
             return staffList;

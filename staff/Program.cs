@@ -1,14 +1,10 @@
-﻿using System.Configuration;
-using System.Collections.Specialized;
+﻿
 using System;
 using System.Collections.Generic;
 using StaffModelsLibrary;
 using StaffModelsLibrary.interfaces;
-using System.Reflection;
 using Microsoft.Extensions.Configuration;
-using System.IO;
-using System.Text;
-using System.Xml.Serialization;
+
 
 
 
@@ -21,17 +17,16 @@ namespace staff
         static void Main(string[] args)
         {
             var builder = new ConfigurationBuilder()
-              .AddJsonFile(@"C:\Users\user\Documents\c#\StaffProject\staff\appsettings.json", true, true);
+              .AddJsonFile("appsettings.json", true, true);
             var config = builder.Build();
             var stoageConfig = config["StorageType"];
             var path = config["path"];
-            var assemblyPath = config["assemblyPath"];
+
             Console.WriteLine($"Storage type is: {stoageConfig}");
             Console.WriteLine($"Storage path is: {path}");
               
-            Assembly assembly;
-            assembly = Assembly.LoadFrom(assemblyPath);
-            Type type = assembly.GetType(stoageConfig);
+            
+            Type type = Type.GetType(stoageConfig); 
             IStorage storageObject = (IStorage)Activator.CreateInstance(type);
             List<Staff> staffList = storageObject.GetAllStaffs();
             empId = staffList[staffList.Count-1].EmpId;
@@ -85,7 +80,7 @@ namespace staff
                 Console.WriteLine("Do you want to continue in main menu?(y/n)");
                 continueOption = Console.ReadLine();                            
             }while (continueOption == "y");
-            if(stoageConfig != "StaffModelsLibrary.InMemory")
+            if((storageObject is ISerialize))
             {
                 ISerialize serializeObj  = (ISerialize)storageObject;
                 serializeObj.Serialize(path);

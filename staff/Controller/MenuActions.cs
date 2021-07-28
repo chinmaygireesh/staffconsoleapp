@@ -17,20 +17,6 @@ namespace staff
             return staff;
         }
 
-        public static void  DisplayAstaff(InMemory inMemory)
-        {   
-            Console.WriteLine("Enter the empId ");
-            int empId = Convert.ToInt32(Console.ReadLine());
-            try 
-            {                
-                StaffDisplay.Display(inMemory.GetStaff(empId));
-            }
-            catch(ArgumentOutOfRangeException e)
-            {
-                Console.WriteLine("Exception caught: {0}", e);
-            }
-        }
-
         public static void DisplayAllStaffs(List<Staff> staffList)
         {
             Console.WriteLine("----EMPLOYEE DETAILS---");

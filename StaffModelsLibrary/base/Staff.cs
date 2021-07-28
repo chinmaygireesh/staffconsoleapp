@@ -1,15 +1,26 @@
 using System;
+using System.Xml.Serialization;
+using System.IO;
+using System.Xml;
+
 
 namespace StaffModelsLibrary
 {
+    
     public enum TypesOfStaffs
         {
             Teaching=1,
             Administrative,
             Supporting
         }
+
+    [XmlInclude(typeof(Teaching))]
+    [XmlInclude(typeof(Supporting))]
+    [XmlInclude(typeof(Administrative))]
+
     public class Staff
     {   
+        public Staff() { }
         public Staff(string name,int empId,int salary)
         {
             Name = name;

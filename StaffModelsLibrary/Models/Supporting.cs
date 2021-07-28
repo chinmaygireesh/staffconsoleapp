@@ -14,5 +14,6 @@ namespace StaffModelsLibrary
             Superior = superior;
             Field = supportingField;
         }
+        public Supporting() { }
     }
 }

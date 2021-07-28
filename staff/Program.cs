@@ -3,31 +3,40 @@ using System.Collections.Specialized;
 using System;
 using System.Collections.Generic;
 using StaffModelsLibrary;
+using StaffModelsLibrary.interfaces;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
+using System.IO;
+using System.Text;
+using System.Xml.Serialization;
+
 
 
 namespace staff
-{    
+{
     class Program
     {    
         public static int empId;
+      
         static void Main(string[] args)
         {
-
             var builder = new ConfigurationBuilder()
-              .AddJsonFile($"appsettings.json", true, true);
-
+              .AddJsonFile(@"C:\Users\user\Documents\c#\StaffProject\staff\appsettings.json", true, true);
             var config = builder.Build();
             var stoageConfig = config["StorageType"];
+            var path = config["path"];
+            var assemblyPath = config["assemblyPath"];
             Console.WriteLine($"Storage type is: {stoageConfig}");
-            Console.WriteLine();
+            Console.WriteLine($"Storage path is: {path}");
+              
+            Assembly assembly;
+            assembly = Assembly.LoadFrom(assemblyPath);
+            Type type = assembly.GetType(stoageConfig);
+            IStorage storageObject = (IStorage)Activator.CreateInstance(type);
+            List<Staff> staffList = storageObject.GetAllStaffs();
+            empId = staffList[staffList.Count-1].EmpId;
+            Console.WriteLine($"last empid was :{empId}");
 
-            Assembly executing = Assembly.GetExecutingAssembly();
-            Type storageType = executing.GetType(stoageConfig);
-            Istaffstorage storageObject = (Istaffstorage)Activator.CreateInstance(storageType);
-            
             Staff staff = null;
             string continueOption;
             int userChoice;
@@ -41,7 +50,7 @@ namespace staff
                     case 1:
                         empId++;  
                         staff = MenuActinos.AddStaff(empId);
-                        storageObject.Add(staff);
+                        storageObject.Add(staff);                        
                         break;
                     case 2:
                         Console.WriteLine("Enter the empId ");
@@ -51,7 +60,7 @@ namespace staff
                         StaffDisplay.Display(staff);
                         break;
                     case 3:
-                        List<Staff> staffList = storageObject.GetAllStaffs();
+                        staffList = storageObject.GetAllStaffs();
                         int count = (int)staffList.Count;
                         Console.WriteLine($"list count {count}");
                         MenuActinos.DisplayAllStaffs(staffList);    
@@ -60,15 +69,13 @@ namespace staff
                         Console.WriteLine("Enter the empId ");
                         empId = Convert.ToInt32(Console.ReadLine());
                         staff = storageObject.GetStaff(empId);
-                        storageObject.Delete(empId);
+                      //  storageObject.Delete(empId);
                         Staff updatedStaff = StaffUpdate.Update(staff);
-                        storageObject.Upadate(updatedStaff);
-                
+                        storageObject.Upadate(updatedStaff);                       
                         break;  
                     case 5:
                         Console.WriteLine("Enter the empId ");
                         empId = Convert.ToInt32(Console.ReadLine());
-                        param1[0] = empId;
                         storageObject.Delete(empId);
                         break;      
                     default:
@@ -78,6 +85,11 @@ namespace staff
                 Console.WriteLine("Do you want to continue in main menu?(y/n)");
                 continueOption = Console.ReadLine();                            
             }while (continueOption == "y");
+            if(stoageConfig != "StaffModelsLibrary.InMemory")
+            {
+                ISerialize serializeObj  = (ISerialize)storageObject;
+                serializeObj.Serialize(path);
+            }
         }
     }     
 }

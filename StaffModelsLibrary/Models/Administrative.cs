@@ -13,5 +13,6 @@ namespace StaffModelsLibrary
             AdminNo = admNo;
             AdmDprt = admDprt;
         }
+        public Administrative() { }
     }
 }

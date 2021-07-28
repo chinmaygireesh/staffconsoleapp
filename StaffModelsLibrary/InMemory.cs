@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using StaffModelsLibrary;
 
-
-
-namespace staff
+namespace StaffModelsLibrary
 {
     
     
-    class InMemory : Istaffstorage
+    public class InMemory : IStorage
     {
         public List<Staff> staffList = new List<Staff>();
 
@@ -23,7 +20,7 @@ namespace staff
 
         public void Delete(int empId)
         {
-            staffList.Remove(GetStaff(empId));          
+            staffList.Remove(GetStaff(empId));
         }
 
         public Staff GetStaff(int empId)
@@ -41,8 +38,25 @@ namespace staff
 
         public void Upadate(Staff updatedStaff)
         {
-            staffList.Add(updatedStaff);
-            Console.WriteLine("----SUCCESSFULLY UPADATED----");
+            int i=0;
+            foreach (Staff staff in staffList)
+            {
+                if(updatedStaff.EmpId==staff.EmpId)
+                {
+                    break;
+                }
+                i++;
+            }
+
+            staffList[i] = updatedStaff;
+            Console.WriteLine($"given index is {i}");
+
+
+
+
+
+            //   staffList.Add(updatedStaff);
+            // Console.WriteLine("----SUCCESSFULLY UPADATED----");
         }
 
         public List<Staff> GetAllStaffs()

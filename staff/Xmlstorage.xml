@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfStaff xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Staff xsi:type="Teaching">
+    <Name>chinmay</Name>
+    <EmpId>1</EmpId>
+    <Salary>454</Salary>
+    <StaffType>Teaching</StaffType>
+    <Subject>4545</Subject>
+    <NoOfHrs>4545</NoOfHrs>
+  </Staff>
+  <Staff xsi:type="Teaching">
+    <Name>sdsd</Name>
+    <EmpId>2</EmpId>
+    <Salary>455</Salary>
+    <StaffType>Teaching</StaffType>
+    <Subject>454</Subject>
+    <NoOfHrs>454</NoOfHrs>
+  </Staff>
+  <Staff xsi:type="Supporting">
+    <Name>kutii</Name>
+    <EmpId>3</EmpId>
+    <Salary>455</Salary>
+    <StaffType>Supporting</StaffType>
+    <Superior>454</Superior>
+    <Field>454</Field>
+  </Staff>
+</ArrayOfStaff>

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using StaffModelsLibrary;
 
-namespace staff
+namespace StaffModelsLibrary
 {
-    interface Istaffstorage
+    public interface IStorage
     {
         void Add(Staff staff);
         Staff GetStaff(int empId);

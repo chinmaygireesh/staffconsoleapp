@@ -58,13 +58,16 @@ namespace staff
                             Console.WriteLine("Do you want to Adding staff?(y/n)");
                             continueOption = Console.ReadLine();
                         } while (continueOption == "y");
-                        //  db.Add(staff);
+                        if (storageObject is DbStorage)
+                        {
+                            DbStorage db = (DbStorage)storageObject;
+                            db.Bulkinsert();
+                        }           
                         break;
                     case 2:
                         Console.WriteLine("Enter the empId ");
                         empId = Convert.ToInt32(Console.ReadLine());
                         staff = storageObject.GetStaff(empId);
-                        //staff = db.GetStaff(empId);
                         StaffDisplay.Display(staff);
                         break;
                     case 3:
@@ -77,16 +80,13 @@ namespace staff
                         Console.WriteLine("Enter the empId ");
                         empId = Convert.ToInt32(Console.ReadLine());
                         staff = storageObject.GetStaff(empId);
-                        //staff = db.GetStaff(empId);
                         Staff updatedStaff = StaffUpdate.Update(staff);
                         storageObject.Upadate(updatedStaff);
-                        //db.Upadate(updatedStaff);
                         break;  
                     case 5:
                         Console.WriteLine("Enter the empId ");
                         empId = Convert.ToInt32(Console.ReadLine());
                         storageObject.Delete(empId);
-                        //db.Delete(empId);
                         break;      
                     default:
                         Console.WriteLine("SELECT A VALID OPTION");

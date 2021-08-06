@@ -8,8 +8,8 @@ namespace StaffModelsLibrary
 {
     public class DbStorage:IStorage
     {
-        DataTable dt = new DataTable();
-        
+        List<Staff> staffList = new List<Staff>();
+        public static int id = 0;
 
         public static string connString;
                                 
@@ -20,106 +20,11 @@ namespace StaffModelsLibrary
             var config = builder.Build();
             connString = config["ConnString"];
             Console.WriteLine(connString);
-           
-            dt.Clear();
-            dt.Columns.Add("empid", typeof(int));
-            dt.Columns["empid"].DefaultValue = DBNull.Value;
-            dt.Columns.Add("id", typeof(int));
-            dt.Columns.Add("name", typeof(string));
-            dt.Columns.Add("salary", typeof(int));
-            dt.Columns.Add("empType", typeof(int));
-            dt.Columns.Add("subject", typeof(string));
-            dt.Columns["subject"].DefaultValue = DBNull.Value;
-            dt.Columns.Add("tHours", typeof(int));
-            dt.Columns["tHours"].DefaultValue = DBNull.Value;
-            dt.Columns.Add("admNo", typeof(string));
-            dt.Columns["admNo"].DefaultValue = DBNull.Value;
-            dt.Columns.Add("admDprtmnt", typeof(string));
-            dt.Columns["admDprtmnt"].DefaultValue = DBNull.Value;
-            dt.Columns.Add("superior", typeof(string));
-            dt.Columns["superior"].DefaultValue = DBNull.Value;
-            dt.Columns.Add("field", typeof(string));
-            dt.Columns["field"].DefaultValue = DBNull.Value;
-
-            DataRow dr = dt.NewRow();
-            //dr["empid"] = 1;
-            dr["id"] = 2;
-            dr["name"] = "Tesla";
-            dr["salary"] = 445454;
-            dr["empType"] = 1;
-            dr["subject"] = "dsdsd";
-            dr["tHours"] = 41;
-            dr["admNo"] = "54545";
-            dr["admDprtmnt"] = "544";
-            dr["superior"] = "dsds";
-            dr["field"] = "dsdsdsd";
-            dt.Rows.Add(dr);
-
-            foreach (DataRow row in dt.Rows)
-            {
-                Console.WriteLine();
-                for (int x = 0; x < dt.Columns.Count; x++)
-                {
-                    Console.Write(row[x].ToString() + " ");
-                }
-            }
-
-         /*   using (SqlConnection con = new SqlConnection(connString))
-            {
-                using (SqlCommand cmd = new SqlCommand("Proc_bulkInsert"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@StaffDetails", dt);
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-            }*/
-
-
         }
 
         public void Add(Staff staff)
         {
-            using (SqlConnection connection = new SqlConnection())
-            {
-                connection.ConnectionString = connString;
-                connection.Open();
-                SqlCommand command = new  SqlCommand("Proc_InsertAstaff", connection);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@Name",staff.Name);
-                command.Parameters.AddWithValue("@salary",staff.Salary);
-
-                switch (staff.StaffType)
-                {
-                    case TypesOfStaffs.Teaching:
-                        Teaching teachingObj = (Teaching)staff;
-                        command.Parameters.AddWithValue("@empType", (int)staff.StaffType);
-                        command.Parameters.AddWithValue("@subject ", teachingObj.Subject);
-                        command.Parameters.AddWithValue("@tHours", teachingObj.NoOfHrs);
-                        break;
-                    case TypesOfStaffs.Administrative:
-                        Administrative adminitrativeObj = (Administrative)staff;
-                        command.Parameters.AddWithValue("@empType", (int)staff.StaffType);
-                        command.Parameters.AddWithValue("@admNo", adminitrativeObj.AdminNo);
-                        command.Parameters.AddWithValue("@admDprtmnt",adminitrativeObj.AdmDprt);
-                        break;
-                    case TypesOfStaffs.Supporting:
-                        Supporting supportingObj = (Supporting)staff;
-                        command.Parameters.AddWithValue("@empType", (int)staff.StaffType);
-                        command.Parameters.AddWithValue("@superior", supportingObj.Superior);
-                        command.Parameters.AddWithValue("@field ", supportingObj.Field);
-                        break;
-                    default:
-                        break;
-
-                }
-                int i = command.ExecuteNonQuery();
-                connection.Close();
-
-                
-            }
+            staffList.Add(staff);
         }
 
         public Staff GetStaff(int empId)
@@ -158,7 +63,7 @@ namespace StaffModelsLibrary
                 return staff;
             }
         }
-
+        
         public void Delete(int empId)
         {
             using (SqlConnection connection = new SqlConnection())
@@ -210,9 +115,7 @@ namespace StaffModelsLibrary
 
                 }
                 int i = command.ExecuteNonQuery();
-                connection.Close();
-
-               
+                connection.Close(); 
             }
         }
 
@@ -269,7 +172,6 @@ namespace StaffModelsLibrary
             supporting.Field = (string)dataReader["Supporting_Field"];
             return supporting;
         }
-
         public static Staff CreatAdministarativeObject(SqlDataReader dataReader)
         {
             Administrative administrative = new Administrative();
@@ -289,6 +191,87 @@ namespace StaffModelsLibrary
             teaching.NoOfHrs = (int)dataReader["Teaching_Hours"];
             return teaching;
         }
+        public void Bulkinsert( )
+        {
+            DataTable dt = DataTableCreator();
+
+            foreach (Staff staff in staffList)
+            {
+                id++;
+                DataRow dr = dt.NewRow();
+                //dr["empid"] = 1;
+                dr["id"] = id;
+                dr["name"] = staff.Name;
+                dr["salary"] = staff.Salary;
+                switch (staff.StaffType)
+                {
+                    case TypesOfStaffs.Teaching:
+                        Teaching teachingObj = (Teaching)staff;
+                        dr["empType"] = (int)staff.StaffType;
+                        dr["subject"] = teachingObj.Subject;
+                        dr["tHours"] = teachingObj.NoOfHrs;
+                        break;
+                    case TypesOfStaffs.Administrative:
+                        Administrative adminitrativeObj = (Administrative)staff;
+                        dr["empType"] = (int)staff.StaffType;
+                        dr["admNo"] = adminitrativeObj.AdminNo;
+                        dr["admDprtmnt"] = adminitrativeObj.AdmDprt;
+                        break;
+                    case TypesOfStaffs.Supporting:
+                        Supporting supportingObj = (Supporting)staff;
+                        dr["empType"] = (int)staff.StaffType;
+                        dr["superior"] = supportingObj.Superior;
+                        dr["field"] = supportingObj.Field;
+
+                        break;
+                    default:
+                        break;
+                }
+                dt.Rows.Add(dr);
+            }
+
+            using (SqlConnection con = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Proc_bulkInsert"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@StaffDetails", dt);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            staffList.Clear();
+            dt.Clear();
+
+        }
+
+        private static DataTable DataTableCreator()
+        {
+            DataTable dt = new();
+            dt.Clear();
+            dt.Columns.Add("empid", typeof(int));
+            dt.Columns["empid"].DefaultValue = DBNull.Value;
+            dt.Columns.Add("id", typeof(int));
+            dt.Columns.Add("name", typeof(string));
+            dt.Columns.Add("salary", typeof(int));
+            dt.Columns.Add("empType", typeof(int));
+            dt.Columns.Add("subject", typeof(string));
+            dt.Columns["subject"].DefaultValue = DBNull.Value;
+            dt.Columns.Add("tHours", typeof(int));
+            dt.Columns["tHours"].DefaultValue = DBNull.Value;
+            dt.Columns.Add("admNo", typeof(string));
+            dt.Columns["admNo"].DefaultValue = DBNull.Value;
+            dt.Columns.Add("admDprtmnt", typeof(string));
+            dt.Columns["admDprtmnt"].DefaultValue = DBNull.Value;
+            dt.Columns.Add("superior", typeof(string));
+            dt.Columns["superior"].DefaultValue = DBNull.Value;
+            dt.Columns.Add("field", typeof(string));
+            dt.Columns["field"].DefaultValue = DBNull.Value;
+            return dt;
+        }
     }
 }
+
 

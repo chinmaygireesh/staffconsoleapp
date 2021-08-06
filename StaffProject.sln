@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaffModelsLibrary", "Staff
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "staff", "staff\staff.csproj", "{3E279AEC-0CF6-4500-A6C2-C2AA2BB88626}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "StaffDB", "..\..\DBprojects\StaffDB\StaffDB.sqlproj", "{EA946B2C-A10B-459F-9C32-8CDE58579364}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,24 @@ Global
 		{3E279AEC-0CF6-4500-A6C2-C2AA2BB88626}.Release|x64.Build.0 = Release|Any CPU
 		{3E279AEC-0CF6-4500-A6C2-C2AA2BB88626}.Release|x86.ActiveCfg = Release|Any CPU
 		{3E279AEC-0CF6-4500-A6C2-C2AA2BB88626}.Release|x86.Build.0 = Release|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Debug|x64.Build.0 = Debug|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Debug|x64.Deploy.0 = Debug|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Debug|x86.Build.0 = Debug|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Debug|x86.Deploy.0 = Debug|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Release|x64.ActiveCfg = Release|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Release|x64.Build.0 = Release|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Release|x64.Deploy.0 = Release|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Release|x86.ActiveCfg = Release|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Release|x86.Build.0 = Release|Any CPU
+		{EA946B2C-A10B-459F-9C32-8CDE58579364}.Release|x86.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,11 +2,8 @@
 using System;
 using System.Collections.Generic;
 using StaffModelsLibrary;
-using StaffModelsLibrary.interfaces;
 using Microsoft.Extensions.Configuration;
-
-
-
+using System.Linq;
 
 namespace staff
 {
@@ -21,37 +18,53 @@ namespace staff
             var config = builder.Build();
             var stoageConfig = config["StorageType"];
             var path = config["path"];
-
+        
             Console.WriteLine($"Storage type is: {stoageConfig}");
             Console.WriteLine($"Storage path is: {path}");
-              
-            
+          
             Type type = Type.GetType(stoageConfig); 
             IStorage storageObject = (IStorage)Activator.CreateInstance(type);
-            List<Staff> staffList = storageObject.GetAllStaffs();
-            empId = staffList[staffList.Count-1].EmpId;
-            Console.WriteLine($"last empid was :{empId}");
-
+                           
             Staff staff = null;
+            List<Staff> staffList;
             string continueOption;
             int userChoice;
             do
             {
                 Console.WriteLine("\nSelect your Action \n1.Add a staff\n2.Display a staff\n3.Display all staffs\n4.Update a staff\n5.Delete a staff");
                 userChoice = Convert.ToInt32(Console.ReadLine());
-                object[] param1 = new object[1];
                 switch (userChoice) 
                     {
                     case 1:
-                        empId++;  
-                        staff = MenuActinos.AddStaff(empId);
-                        storageObject.Add(staff);                        
+                        do
+                        {
+                            if (storageObject is DbStorage)
+                            {
+                                staff = MenuActinos.AddStaff(0);
+                                storageObject.Add(staff);
+                            }
+                            else
+                            {
+                                staffList = storageObject.GetAllStaffs();
+                                var list = from s in staffList
+                                           orderby s.EmpId descending
+                                           select s;
+                                int empId = list.ElementAt(0).EmpId;
+                                Console.WriteLine($"last empid was :{empId}");
+                                empId++;
+                                staff = MenuActinos.AddStaff(empId);
+                                storageObject.Add(staff);
+                            }
+                            Console.WriteLine("Do you want to Adding staff?(y/n)");
+                            continueOption = Console.ReadLine();
+                        } while (continueOption == "y");
+                        //  db.Add(staff);
                         break;
                     case 2:
                         Console.WriteLine("Enter the empId ");
                         empId = Convert.ToInt32(Console.ReadLine());
-                        param1[0] = empId;
                         staff = storageObject.GetStaff(empId);
+                        //staff = db.GetStaff(empId);
                         StaffDisplay.Display(staff);
                         break;
                     case 3:
@@ -64,14 +77,16 @@ namespace staff
                         Console.WriteLine("Enter the empId ");
                         empId = Convert.ToInt32(Console.ReadLine());
                         staff = storageObject.GetStaff(empId);
-                      //  storageObject.Delete(empId);
+                        //staff = db.GetStaff(empId);
                         Staff updatedStaff = StaffUpdate.Update(staff);
-                        storageObject.Upadate(updatedStaff);                       
+                        storageObject.Upadate(updatedStaff);
+                        //db.Upadate(updatedStaff);
                         break;  
                     case 5:
                         Console.WriteLine("Enter the empId ");
                         empId = Convert.ToInt32(Console.ReadLine());
                         storageObject.Delete(empId);
+                        //db.Delete(empId);
                         break;      
                     default:
                         Console.WriteLine("SELECT A VALID OPTION");

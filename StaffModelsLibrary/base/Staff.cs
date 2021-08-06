@@ -2,7 +2,8 @@ using System;
 using System.Xml.Serialization;
 using System.IO;
 using System.Xml;
-
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace StaffModelsLibrary
 {
@@ -17,9 +18,9 @@ namespace StaffModelsLibrary
     [XmlInclude(typeof(Teaching))]
     [XmlInclude(typeof(Supporting))]
     [XmlInclude(typeof(Administrative))]
-
+   
     public class Staff
-    {   
+    {
         public Staff() { }
         public Staff(string name,int empId,int salary)
         {
